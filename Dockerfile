@@ -7,4 +7,4 @@ RUN npm run builder
 
 FROM nginx
 COPY --from=builder /app/dist /usr/share/nginx/html
-Expose 80
+Expose 8000
