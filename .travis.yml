@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+   
+before_install:
+  - docker build -t docker-react -f Dockerfile.dev
+
+scrpit:
+   - docker run -e CI=true docker-react npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  region: <where you created elastic bean stalk>
+  app:  <your-app-name created inside ebs>
+  env:  Docker-env 
+  //<find at ebs dashboard>
+  bucket_name: <your s3 bucket name>
+  bucket_path: <your bucket path// by default it is app name>
+  on:
+    branch: master
+  access key: $AWS_ACCESS_KEY
+  secret_access_key:"$AWS"
